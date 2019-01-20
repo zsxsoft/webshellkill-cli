@@ -38,4 +38,4 @@ RUN wget $WEBSHELLKILL_URL -O /root/webshellkill.zip && \
     rm /root/webshellkill.zip && \
     chmod +x /usr/local/bin/webshellkill
 
-ENTRYPOINT webshellkill
+ENTRYPOINT ["webshellkill"]

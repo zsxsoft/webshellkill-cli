@@ -34,7 +34,11 @@ winetricks -q mdac28
 
 接着，需要使用 winecfg，将``version.dll``配置为“原装先于内建”；或者直接导入``docker-items/override.reg``注册表也可。
 
-Docker To be done...
+### Docker
+
+```bash
+docker run --rm -v "/your-website:/data" -it zsxsoft:webshellkill-cli "Z:\\data\\"
+```
 
 ## 示例输出
 
