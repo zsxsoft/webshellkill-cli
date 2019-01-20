@@ -11,10 +11,11 @@ class WebShellKillConfig {
 private:
 	static std::map<string, int> argvFlagMap;
 	static CLI::App* app;
-	static std::vector<std::string> scanList;
 	static void insert(string registry, string option, int defaultValue, string helpString = "");
 
 public:
+
+	static std::vector<std::string> scanList;
 	static void initialize();
 	static void parse();
 };

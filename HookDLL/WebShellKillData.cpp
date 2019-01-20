@@ -6,24 +6,33 @@
 #include <Windows.h>
 #include <tlhelp32.h>
 
+#include <vector>
+#include <memory>
+
 void WebShellKillData::initialize() {
 	data.set<>(picojson::array());
 }
 
 LRESULT CALLBACK WebShellKillData::hookCallback(int nCode, WPARAM wParam, LPARAM lParam) {
 	CWPSTRUCT msg = *(CWPSTRUCT*)lParam;
-	if (msg.message == LVM_INSERTITEMA) {
+	if (msg.message == WM_ENABLE) {
+		if (isScanning) {
+			isScanning = false;
+			std::cout << data.serialize() << std::endl << std::endl;
+		}
+	}
+	else if (msg.message == LVM_INSERTITEMA) {
 		currentColumnIndex = -1;
 		isWaitingForText = true;
 		isSecondCall = 0;
 		item.set<>(picojson::object());
+		isScanning = true;
 	}
 	else if (msg.message == LVM_SETITEMA) {
 		if (isWaitingForText) {
 			data.get<picojson::array>().push_back(item);
 			item.get<picojson::object>().clear();
 			isWaitingForText = false;
-			std::cout << data.serialize() << std::endl << std::endl;
 		}
 	}
 	else if (msg.message == LVM_SETITEMTEXTA) {
