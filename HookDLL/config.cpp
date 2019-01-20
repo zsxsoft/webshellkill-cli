@@ -53,7 +53,7 @@ void Config::initialize() {
 			throw CLI::CallForHelp();
 		}
 		for (auto &f : scanList) {
-			if (!std::experimental::filesystem::exists(f)) {
+			if (!std::experimental::filesystem::exists(f) || !std::experimental::filesystem::is_directory(f)) {
 				std::cout << f << " not exists!";
 				ExitProcess(1);
 			}
