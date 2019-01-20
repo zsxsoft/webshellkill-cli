@@ -7,7 +7,7 @@
 #include "CLI11.hpp"
 using std::string;
 
-class WebShellKillConfig {
+class Config {
 private:
 	static std::map<string, int> argvFlagMap;
 	static CLI::App* app;

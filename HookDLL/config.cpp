@@ -1,21 +1,21 @@
 ﻿#pragma once
 #include "stdafx.h"
-#include "WebShellKillConfig.h"
+#include "config.h"
 #include <string>
 #include <vector>
 #include <iostream>
 #include <map>
 
-std::map<string, int> WebShellKillConfig::argvFlagMap;
-CLI::App* WebShellKillConfig::app;
-std::vector<std::string> WebShellKillConfig::scanList;
+std::map<string, int> Config::argvFlagMap;
+CLI::App* Config::app;
+std::vector<std::string> Config::scanList;
 
-void WebShellKillConfig::insert(string registry, string option, int defaultValue, string helpString) {
+void Config::insert(string registry, string option, int defaultValue, string helpString) {
 	argvFlagMap[registry] = defaultValue;
 	app->add_flag(option, argvFlagMap[registry], helpString);
 }
 
-void WebShellKillConfig::initialize() {
+void Config::initialize() {
 	app = new CLI::App{ "WebShellKill CLI" };
 	LPWSTR *szArglist;
 	int nArgs;
@@ -52,8 +52,4 @@ void WebShellKillConfig::initialize() {
 		ExitProcess(ret);
 	}
 	delete args;
-}
-
-void WebShellKillConfig::parse() {
-
 }

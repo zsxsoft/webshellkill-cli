@@ -24,16 +24,22 @@
     <ClInclude Include="picojson.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="WebShellKillData.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="detours.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="WebShellKillConfig.h">
+    <ClInclude Include="CLI11.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CLI11.hpp">
+    <ClInclude Include="global.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="data.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="EventEmitter.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,16 +50,19 @@
     <ClCompile Include="HookDLL.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="WebShellKillData.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="DLLHijack.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="WebShellKillConfiig.cpp">
+    <ClCompile Include="global.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="EventEmitter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="data.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

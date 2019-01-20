@@ -151,17 +151,20 @@
   <ItemGroup>
     <ClInclude Include="CLI11.hpp" />
     <ClInclude Include="detours.h" />
+    <ClInclude Include="EventEmitter.h" />
+    <ClInclude Include="global.h" />
     <ClInclude Include="picojson.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="WebShellKillConfig.h" />
-    <ClInclude Include="WebShellKillData.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="data.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DLLHijack.cpp" />
-    <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="WebShellKillConfiig.cpp" />
-    <ClCompile Include="WebShellKillData.cpp" />
+    <ClCompile Include="EventEmitter.cpp" />
+    <ClCompile Include="global.cpp" />
+    <ClCompile Include="config.cpp" />
+    <ClCompile Include="data.cpp" />
     <ClCompile Include="HookDLL.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
