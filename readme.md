@@ -6,7 +6,7 @@ webshellkill-cli 是一个通过DLL Injection + Hook实现的库，实现了通�
 
 ## 用法
 
-将 version.dll 放置于 WebShellKill.exe 同目录下即可使用。
+将 version.dll 放置于 WebShellKill.exe 同目录下即可使用。（所有配置参数暂均无法使用）
 ```txt
 
 D:\Projects\WebShellKillHook\Debug>WebShellKill.exe -h
@@ -15,14 +15,14 @@ WebShellKill CLI
 Usage: WebShellKill.exe [OPTIONS] [FILE]
 
 Options:
-  -h,--help                   Print this help message and exit
-  -i,--show-hidden-file       扫描隐藏文件
-  -z,--show-zend-file         显示经过Zend加密的文件
-  -a,--auto-check-new-version 自动更新行为库
-  -d,--hide-level1            隐藏低级别威胁
-  -t,--type                   TBD
-  -e,--exclude-dir            排除指定的文件夹（TBD）
-  -f,--output TEXT            输出到文件
+  -h,--help                        Print this help message and exit
+  -i,--show-hidden-file TEXT       扫描隐藏文件
+  -z,--show-zend-file TEXT         显示经过Zend加密的文件
+  -a,--auto-check-new-version TEXT 自动更新行为库
+  -d,--hide-level1 TEXT            隐藏低级别威胁
+  -t,--type TEXT                   TBD
+  -e,--exclude-dir TEXT            排除指定的文件夹（TBD）
+  -f,--output TEXT                 输出到文件
 
 ```
 ### wine使用
@@ -32,8 +32,7 @@ export LC_ALL=zh_CN.UTF-8
 winetricks -q mdac28
 ```
 
-接着，需要使用 winecfg，将``version.dll``配置为“原装先于内建”。
-![wine1](Images/wine-1.jpg)
+接着，需要使用 winecfg，将``version.dll``配置为“原装先于内建”；或者直接导入``docker-items/override.reg``注册表也可。
 
 Docker To be done...
 
