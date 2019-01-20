@@ -18,7 +18,7 @@ namespace WebShellKillHook {
 		std::string columnMap[6] = { "file", "level", "description", "size", "time", "crc32" };
 		picojson::value data;
 		picojson::value item;
-		
+
 
 	public:
 		HWND indexButtonScanHwnd = 0;

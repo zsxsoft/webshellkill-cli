@@ -12,7 +12,7 @@ namespace WebShellKillHook {
 		const int EVENT_DONE = 5;
 		extern EventEmitter event;
 		extern std::vector<std::string>::iterator currentIterator;
-		
+
 		void initialize();
 		void startScanQueue();
 		void startScan();
