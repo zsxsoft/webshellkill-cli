@@ -3,9 +3,11 @@
 #include "config.h"
 #include "global.h"
 #include "data.h"
+
 #include <string>
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 namespace WebShellKillHook {
 	namespace Global {
@@ -36,7 +38,15 @@ namespace WebShellKillHook {
 				startScan();
 			});
 			event.on(EVENT_DONE, []() {
-				std::cout << data.serialize() << std::endl;
+				if (Config::outputPath == "") {
+					std::cout << data.serialize() << std::endl;
+				}
+				else {
+					std::ofstream f;
+					f.open(Config::outputPath);
+					f << data.serialize() << std::endl;
+					f.close();
+				}
 				ExitProcess(0);
 			});
 		};

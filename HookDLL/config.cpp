@@ -5,14 +5,20 @@
 #include <vector>
 #include <iostream>
 #include <map>
+#include <filesystem>
 
-std::map<string, int> Config::argvFlagMap;
+using std::cout;
+using std::endl; 
+
+std::map<string, string> Config::argvFlagMap;
 CLI::App* Config::app;
 std::vector<std::string> Config::scanList;
 
-void Config::insert(string registry, string option, int defaultValue, string helpString) {
+std::string Config::outputPath = "";
+
+void Config::insert(string registry, string option, string defaultValue, string helpString) {
 	argvFlagMap[registry] = defaultValue;
-	app->add_flag(option, argvFlagMap[registry], helpString);
+	app->add_option(option, argvFlagMap[registry], helpString);
 }
 
 void Config::initialize() {
@@ -20,15 +26,15 @@ void Config::initialize() {
 	LPWSTR *szArglist;
 	int nArgs;
 	szArglist = CommandLineToArgvW(GetCommandLineW(), &nArgs);
+	
+	insert("Check_Hide_File", "-i,--show-hidden-file", "1", "扫描隐藏文件");
+	insert("Show_Zend_File", "-z,--show-zend-file", "1", "显示经过Zend加密的文件");
+	insert("Auto_Check_New_Ver", "-a,--auto-check-new-version", "1", "自动更新行为库");
+	insert("Hide_Levl1", "-d,--hide-level1", "1", "隐藏低级别威胁");
+	insert("Check_Type", "-t,--type", "1", "TBD");
+	insert("Show_Hide_dir_", "-e,--exclude-dir", "0", "排除指定的文件夹（TBD）");
 
-	std::string filename = "default";
-
-	insert("Check_Hide_File", "-i,--show-hidden-file", 1);
-	insert("Show_Zend_File", "-z,--show-zend-file", 1);
-	insert("Auto_Check_New_Ver", "-a,--auto-check-new-version", 1);
-	insert("Hide_Levl1", "-d,--hide-level1", 1);
-	insert("Check_Type", "-t,--type", 1);
-	insert("Show_Hide_dir_", "-e,--exclude-dir", 0);
+	app->add_option("-f,--output", outputPath, "输出到文件");
 
 	app->allow_extras(true);
 
@@ -38,18 +44,32 @@ void Config::initialize() {
 		char* arg = new char[len * 2];
 		sprintf_s(arg, len + 1, "%ls", szArglist[i]);
 		args[i] = arg;
-		printf("%d %s\n", strlen(arg), arg);
 	}
-
 
 	try {
 		app->parse(nArgs, args);
 		scanList = app->remaining();
+		if (scanList.size() == 0) {
+			throw CLI::CallForHelp();
+		}
+		for (auto &f : scanList) {
+			if (!std::experimental::filesystem::exists(f)) {
+				std::cout << f << " not exists!";
+				ExitProcess(1);
+			}
+		}
 	}
 	catch (const CLI::ParseError &e) {
-		printf("%s\n", e.what());
+		//cout << e.what() << endl;
 		int ret = app->exit(e);
 		ExitProcess(ret);
 	}
 	delete args;
 }
+
+string Config::get(string key) {
+	auto intValue = argvFlagMap.find(key);
+	if (intValue == argvFlagMap.end()) return "";
+	return intValue->second;// std::to_string(intValue->second);
+}
+
