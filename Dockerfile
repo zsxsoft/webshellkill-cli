@@ -13,8 +13,6 @@ RUN echo "x86" > /etc/apk/arch && \
 	apk add --no-cache wine xvfb wget unzip ncurses-libs cabextract
 
 RUN	WINEARCH=win32 wine wineboot && \
-    wine regedit.exe /s /tmp/d99net.reg && \
-    wine regedit.exe /s /tmp/override.reg && \
     mkdir /tmp/mdac && \
     wget https://download.microsoft.com/download/4/a/a/4aafff19-9d21-4d35-ae81-02c48dcbbbff/MDAC_TYP.EXE -O /tmp/mdac/mdac.exe && \
     cd /tmp/mdac && cabextract mdac.exe && cabextract *.cab && rm -rf *.cab && cp * /root/.wine/drive_c/windows/system32/ && \
@@ -31,7 +29,9 @@ COPY docker-items/run.sh /usr/local/bin/webshellkill
 # cd /tmp/mdac && for i in *.dll; do wine regsvr32 "c:\\windows\\system32\\$i"; echo $i; done
 COPY docker-items/system.reg /root/.wine/system.reg
 
-RUN wget $WEBSHELLKILL_URL -O /root/webshellkill.zip && \
+RUN wine regedit.exe /s /tmp/d99net.reg && \
+    wine regedit.exe /s /tmp/override.reg && \
+    wget $WEBSHELLKILL_URL -O /root/webshellkill.zip && \
 	wget $VERSION_DLL -O /root/version.dll && \
     echo 'Unzipping WebShellKill ...' && \
     cd /root && LC_ALL=zh_CN.UTF-8 unzip /root/webshellkill.zip && \
