@@ -35,11 +35,15 @@ winetricks -q mdac28
 
 之后直接``wine WebShellKillCLI.exe``即可。
 
+关于乱码，请参见“注意事项”。
+
 ### Docker
 
 ```bash
-docker run --rm -v "/your-website:/data" -it zsxsoft:webshellkill-cli "Z:\\data\\"
+docker run --rm --privileged -v "/your-website:/data" -it zsxsoft:webshellkill-cli "Z:\\data\\" | iconv -f GBK -t UTF8
 ```
+
+日志将被输出在 stderr 里，而最终的 JSON 在 stdout。
 
 ## 示例输出
 
@@ -80,7 +84,8 @@ docker run --rm -v "/your-website:/data" -it zsxsoft:webshellkill-cli "Z:\\data\
 
 1. WebShellKill 本身不是绿色软件，其在32位系统下会读写``HKEY_LOCAL_MACHINE\Software\d99net\d_webshell_kill``，本项目仅对读下了钩子，未对写进行处理。
 2. 因为 WebShellKill 是一个 GUI 程序，本项目只对窗口进行了隐藏。因此，如果需要在Wine下使用，仍然需要 X Window 或 Xvfb。
-3. 本程序使用的API均为A系列，因此无论是输入输出均为ANSI编码，非中文环境下可能无法使用。在 Wine 下使用，必须配置环境变量``LC_ALL=zh_CN.UTF-8``，且输出需要进行编码转换：``iconv -f GBK -t UTF8``。如直接使用Docker镜像，其已内置转换，故不再需要。
+3. 本程序使用的API均为A系列，因此无论是输入输出均为ANSI编码，非中文环境下可能无法使用。在 Wine 下使用，必须配置环境变量``LC_ALL=zh_CN.UTF-8``，且输出需要进行编码转换：``iconv -f GBK -t UTF8``。
+4. 如果出现 Segmentation fault，很可能是 iconv 引起的，例如 alpine:3.7 的 iconv 就有出现这种问题的可能。此时可以去掉 iconv 看看，也可以干脆直接输出到别的文件后，用文本编辑器打开。
 
 ## 协议
 The MIT License
