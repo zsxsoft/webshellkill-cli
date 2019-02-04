@@ -53,7 +53,10 @@ void Config::initialize() {
 			throw CLI::CallForHelp();
 		}
 		for (auto &f : scanList) {
-			if (!std::experimental::filesystem::exists(f)) {
+			if (f == "WebShellKillCLI.exe" || f == "WebShellKill.exe") { // If running under vsjitdebugger
+				continue;
+			}
+			if (!std::experimental::filesystem::exists(f) || !std::experimental::filesystem::is_directory(f)) {
 				std::cout << f << " not exists!";
 				ExitProcess(1);
 			}
@@ -63,6 +66,9 @@ void Config::initialize() {
 		//cout << e.what() << endl;
 		int ret = app->exit(e);
 		ExitProcess(ret);
+	}
+	for (auto i = 0; i < nArgs; i++) {
+		delete args[i];
 	}
 	delete args;
 }

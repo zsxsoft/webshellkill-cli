@@ -54,6 +54,7 @@ namespace WebShellKillHook {
 		void startScanQueue() {
 			currentIterator = Config::scanList.begin();
 			startScan();
+			event.emit(EVENT_SCAN_START);
 		}
 
 		void startScan() {

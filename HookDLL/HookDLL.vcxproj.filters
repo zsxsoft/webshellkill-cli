@@ -24,9 +24,6 @@
     <ClInclude Include="picojson.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="detours.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="CLI11.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -50,9 +47,6 @@
     <ClCompile Include="HookDLL.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="DLLHijack.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="global.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -65,5 +59,8 @@
     <ClCompile Include="data.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

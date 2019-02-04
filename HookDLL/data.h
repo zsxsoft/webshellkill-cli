@@ -15,6 +15,8 @@ namespace WebShellKillHook {
 		int isSecondCall = 0;
 		bool isWaitingForText = false;
 		bool isScanning = false;
+		bool realFoundSomething = false;
+		int enableCount = 0;
 		std::string columnMap[6] = { "file", "level", "description", "size", "time", "crc32" };
 		picojson::value data;
 		picojson::value item;
