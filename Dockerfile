@@ -21,7 +21,7 @@ RUN	WINEARCH=win32 wine wineboot && \
     rm -rf /tmp/mdac && cd /
 
 ENV WEBSHELLKILL_URL=http://d99net.net/down/WebShellKill_V2.0.9.zip \
-    VERSION_DLL=https://github.com/zsxsoft/webshellkill-cli/releases/download/0.0.2/Version.dll \
+    WEBSHELLKILLCLI_URL=https://github.com/zsxsoft/webshellkill-cli/releases/download/0.0.3/WebShellKillCLI.zip \
     DISPLAY=:99
 
 COPY docker-items/run.sh /usr/local/bin/webshellkill
@@ -32,10 +32,11 @@ COPY docker-items/system.reg /root/.wine/system.reg
 RUN wine regedit.exe /s /tmp/d99net.reg && \
     wine regedit.exe /s /tmp/override.reg && \
     wget $WEBSHELLKILL_URL -O /root/webshellkill.zip && \
-	wget $VERSION_DLL -O /root/version.dll && \
-    echo 'Unzipping WebShellKill ...' && \
+	wget $WEBSHELLKILLCLI_URL -O /root/webshellkillcli.zip && \
     cd /root && LC_ALL=zh_CN.UTF-8 unzip /root/webshellkill.zip && \
+    unzip /root/webshellkillcli.zip && \
     rm /root/webshellkill.zip && \
+    rm /root/webshellkillcli.zip && \
     chmod +x /usr/local/bin/webshellkill
 
 ENTRYPOINT ["webshellkill"]

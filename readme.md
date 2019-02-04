@@ -6,11 +6,11 @@ webshellkill-cli 是一个通过DLL Injection + Hook实现的库，实现了通�
 
 ## 用法
 
-将 Version.dll 放置于 WebShellKill.exe 同目录下即可使用。
+将 WebShellKillCLI.exe 和 HookDLL.dll 放置于 WebShellKill.exe 同目录下即可使用。
 
 ```txt
 
-D:\Projects\WebShellKillHook\Debug>WebShellKill.exe -h
+D:\Projects\WebShellKillHook\Debug>WebShellKillCLI.exe -h
 
 WebShellKill CLI
 Usage: WebShellKill.exe [OPTIONS] [FILE]
@@ -33,7 +33,7 @@ export LC_ALL=zh_CN.UTF-8
 winetricks -q mdac28
 ```
 
-接着，需要使用 winecfg，将``version.dll``配置为“原装先于内建”；或者直接导入``docker-items/override.reg``注册表也可。之后即可``wine WebShellKill.exe``。
+之后直接``wine WebShellKillCLI.exe``即可。
 
 ### Docker
 
